@@ -1,0 +1,60 @@
+/* Add here all your css styles (customizations) */
+.header-v6 .navbar-nav > li > a {
+    font-size: 20px;
+}
+
+.error-v4 h1 {
+    color: #0b0b0b;
+}
+
+.error-v4 span.sorry {
+    color: #D08E82;
+}
+
+.btn-u.btn-brd.btn-u-light {
+    color: #2C383B;
+    border-color: #0e90d2;
+}
+
+.error-v4 p.copyright-space {
+    color: #231c1a;
+}
+
+h2.title-v2 {
+    color: #F7F7F7;
+}
+
+p.about-message {
+    color: #F7F7F7;
+}
+
+p span.about-message {
+    font-size: 14px;
+}
+
+.breadcrumbs-v1 {
+    background: url("/images/home/hmhome3.jpg");
+    background-repeat:no-repeat;
+    background-position:center bottom;
+    background-size: initial;
+    padding: 150px 0;
+}
+
+.blog-trending li {
+    margin-left: 10px;
+}
+
+.table > tbody > .item-content {
+    color: #2b669a;
+}
+
+.productImage {
+    margin-bottom: 20px;
+}
+
+img.productImages {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding-bottom: 20px;
+}
