@@ -27,17 +27,17 @@ class CompanyDescriptionRepository extends EloquentRepository
     /**
      * @return mixed
      */
-    public function getMainPageAllDescription()
+    public function getHomePageAllDescription()
     {
-        return $this->companyDescription->where('usePage', '=', 'main')->get()->keyBy('descriptionType');
+        return $this->companyDescription->where('usePage', '=', 'home')->get()->keyBy('descriptionType');
     }
 
     /**
-     * @param $mainModifyData
+     * @param $homeModifyData
      */
-    public function exeModifyMainDescription($mainModifyData)
+    public function exeModifyHomeDescription($homeModifyData)
     {
-        foreach ($mainModifyData as $key => $row) {
+        foreach ($homeModifyData as $key => $row) {
             $companyModel = $this->companyDescription->where('descriptionType', '=', $key)->update(['content' => trim($row)]);
         }
     }

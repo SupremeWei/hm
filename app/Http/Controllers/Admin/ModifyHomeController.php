@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\MainDescriptionRequest;
+use App\Services\ImageService;
 use App\Services\SessionForSweetAlertService;
 use Illuminate\Http\Request;
 use App\Services\CompanyDescriptionService;
@@ -14,44 +15,37 @@ use Illuminate\Support\Facades\Input;
 class ModifyHomeController extends AdminController
 {
     public function __construct(CompanyDescriptionService $companyDescriptionService,
-        CompanyImageService $companyImageService,
-        SessionForSweetAlertService $sessionForSweetAlertService)
+                                CompanyImageService $companyImageService,
+                                SessionForSweetAlertService $sessionForSweetAlertService,
+                                ImageService $imageService)
     {
         $this->companyDescriptionService = $companyDescriptionService;
         $this->companyImageService = $companyImageService;
         $this->sessionForSweetAlertService = $sessionForSweetAlertService;
+        $this->imageService = $imageService;
     }
 
-    public function main()
+    public function home()
     {
-        $mainDescription = $this->companyDescriptionService->mainDescription();
+        $homeDescription = $this->companyDescriptionService->homeDescription();
         
-        $mainImages = $this->companyImageService->mainPageImages();
+        $homeImages = $this->companyImageService->homePageImages();
 
-        return view('admin.modifyHome', compact('mainDescription', 'mainImages'));
+        return view('admin.modifyHome', compact('homeDescription', 'homeImages'));
     }
 
     public function editDescription(MainDescriptionRequest $request)
     {
         $this->companyDescriptionService->modifyMainDescription($request);
 
-        $this->sessionForSweetAlertService->updateSuccess('首頁內容', '修改成功');
+        $this->sessionForSweetAlertService->success('首頁內容', '修改成功');
 
         return redirect('admin/home');
     }
 
     public function addHomeImage(Request $request)
     {
-        if (! $request->hasfile('addImage')) {
-            $this->sessionForSweetAlertService->imageEmpty('首頁圖片', '請選擇圖片並點選上傳');
-            return redirect('admin/home');
-        }
-
-        $requestObject = $request->file('addImage');
-        $imageName = $requestObject->getClientOriginalName();
-        $imageMimeType = $requestObject->getClientMimeType();
-        $requestObject->storeAs('public/home', $imageName);
-        $this->sessionForSweetAlertService->updateSuccess('首頁圖片', '上傳成功');
+        $this->imageService->uploadMainImages($request, $this->sessionForSweetAlertService);
 
         return redirect('admin/home');
     }

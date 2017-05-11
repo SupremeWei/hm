@@ -11,7 +11,7 @@
 |
 */
 Route::group(['namespace' => 'Admin'], function() {
-    Route::get('admin/home', 'ModifyHomeController@main');
+    Route::get('admin/home', 'ModifyHomeController@home');
     Route::put('admin/home', 'ModifyHomeController@editDescription');
     Route::post('admin/home/image', 'ModifyHomeController@addHomeImage');
 });

@@ -14,25 +14,27 @@ class CompanyDescriptionService {
      * CompanyDescriptionService constructor.
      * @param CompanyDescriptionRepository $companyDescriptionRepository
      */
-    public function __construct(CompanyDescriptionRepository $companyDescriptionRepository)
+    public function __construct(CompanyDescriptionRepository $companyDescriptionRepository,
+        CompanyImageService $companyImageService)
     {
         $this->companyDescriptionRepository = $companyDescriptionRepository;
+        $this->companyImageService = $companyImageService;
     }
 
-    public function mainDescription()
+    public function homeDescription()
     {
-        return $this->companyDescriptionRepository->getMainPageAllDescription();
+        return $this->companyDescriptionRepository->getHomePageAllDescription();
     }
 
-    public function modifyMainDescription($requestData)
+    public function modifyHomeDescription($requestData)
     {
-        $mainData = [
+        $homeDescriptionRequest = [
             'center' => $requestData->get('center'),
             '3-1' => $requestData->get('3-1'),
             '3-2' => $requestData->get('3-2'),
             '3-3' => $requestData->get('3-3'),
         ];
 
-        return $this->companyDescriptionRepository->exeModifyMainDescription($mainData);
+        return $this->companyDescriptionRepository->exeModifyHomeDescription($homeDescriptionRequest);
     }
 }

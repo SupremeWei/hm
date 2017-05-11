@@ -3,7 +3,7 @@
 <!--[if IE 9]> <html lang="en" class="ie9"> <![endif]-->
 <!--[if !IE]><!--> <html lang="en"> <!--<![endif]-->
     <head>
-        <title>404 Error Page 3 | Unify - Responsive Website Template</title>
+        <title>翰鎂科技有限公司</title>
 
         <!-- Meta -->
         <meta charset="utf-8">
@@ -12,7 +12,7 @@
         <meta name="author" content="">
 
         <!-- Favicon -->
-        <link rel="shortcut icon" href="favicon.ico">
+        <link rel="shortcut icon" href="{{ asset('images/hm.ico') }}">
 
         <!-- Web Fonts -->
         <link rel='stylesheet' type='text/css' href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600&amp;subset=cyrillic,latin'>
@@ -34,21 +34,21 @@
         <link rel="stylesheet" href="{{ asset('package-assets/css/pages/page_error4_404.css') }}">
 
         <!-- CSS Theme -->
-        <link rel="stylesheet" href="{{ asset('package-assets/css/theme-colors/default.css" id="style_color') }}">
+        <link rel="stylesheet" href="{{ asset('package-assets/css/theme-colors/default.css') }}" id='style_color'>
         <link rel="stylesheet" href="{{ asset('package-assets/css/theme-skins/dark.css') }}">
 
         <!-- CSS Customization -->
         <link rel="stylesheet" href="{{ asset('package-assets/css/custom.css?v=201704271000') }}">
     </head>
 
-    <body>
+    <body>img2.jpg
         <!--=== Error V4 ===-->
         <div class="container content valign__middle">
             <!--Error Block-->
             <div class="row">
                 <div class="col-md-8 col-md-offset-2">
                     <div class="error-v4">
-                        <a href="#"><img src="{{ asset('images/logo.png') }}" alt=""></a>
+                        <a href="#"><img src="{{ asset('images/logo2.png') }}" alt=""></a>
                         <h1>404</h1>
                         <span class="sorry">抱歉，欲存取頁面不存在</span>
                         <div class="row">
@@ -63,7 +63,7 @@
         <!--End Error Block-->
 
         <!--=== Sticky Footer ===-->
-        <div class="error-v4 container sticky-footer">
+        <div class="container sticky-footer">
             <p class="copyright-space">
                 {{ date("Y") }} &copy; 翰鎂科技有限公司擁有
             </p>
@@ -78,7 +78,7 @@
         <script type="text/javascript" src="{{ asset('package-assets/plugins/back-to-top.js') }}"></script>
         <script type="text/javascript" src="{{ asset('package-assets/plugins/backstretch/jquery.backstretch.min.js') }}"></script>
         <!-- JS Customization -->
-        <script type="text/javascript" src="{{ asset('package-assets/js/custom.js') }}"></script>
+        <script type="text/javascript" src="{{ asset('package-assets/js/custom.js?v=201705101500') }}"></script>
         <!-- JS Page Level -->
         <script type="text/javascript" src="{{ asset('package-assets/js/app.js') }}"></script>
         <script type="text/javascript" src="{{ asset('package-assets/js/plugins/style-switcher.js') }}"></script>
@@ -87,6 +87,11 @@
                 App.init();
                 StyleSwitcher.initStyleSwitcher();
             });
+        </script>
+        <script type="text/javascript">
+            $.backstretch([
+                "{{ asset('images/background/img2.jpg') }}"
+            ])
         </script>
         <!--[if lt IE 9]>
         <script src="{{ asset('package-assets/plugins/respond.js') }}"></script>

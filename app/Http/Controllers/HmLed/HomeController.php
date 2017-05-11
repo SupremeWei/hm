@@ -4,22 +4,26 @@ namespace App\Http\Controllers\HmLed;
 
 use App\Http\Controllers\Controller;
 use App\Services\CompanyDescriptionService;
+use App\Services\CompanyImageService;
 
 class HomeController extends Controller
 {
     /**
      * HomeController constructor.
      */
-    public function __construct(CompanyDescriptionService $companyDescriptionService)
+    public function __construct(CompanyDescriptionService $companyDescriptionService,
+                                CompanyImageService $companyImageService)
     {
         $this->companyDescriptionService = $companyDescriptionService;
+        $this->companyImageService = $companyImageService;
     }
 
     public function home()
     {
-        $mainDescription = $this->companyDescriptionService->mainDescription();
+        $homeImages = $this->companyImageService->homePageImages();
+        $homeDescription = $this->companyDescriptionService->homeDescription();
 
-        return view('hmled.home', compact('mainDescription'));
+        return view('hmled.home', compact('homeImages', 'homeDescription'));
     }
 
     public function about()

@@ -21,7 +21,7 @@
                     </div>
                     <div class="ibox-content">
                         <div class="slick_demo_2">
-                            @foreach($mainImages as $imageRow)
+                            @foreach($homeImages as $imageRow)
                             <div>
                                 <div class="ibox float-e-margins ibox-content1">
                                     <div class="ibox-title">
@@ -33,7 +33,7 @@
                                         </div>
                                     </div>
                                     <div class="ibox-content">
-                                        <img class="img-responsive rounded-2x" src='{{ asset("images/$imageRow->fileUrl/$imageRow->fileName") }}' alt="">
+                                        <img class="img-responsive rounded-2x" src='{{ Storage::url("$imageRow->fileUrl/$imageRow->fileName") }}' alt="">
                                     </div>
                                 </div>
                             </div>
@@ -87,10 +87,10 @@
                     </div>
                     <div class="ibox-content">
                         @php
-                            $center = $mainDescription->get('center');
-                            $main3_1 = $mainDescription->get('3-1');
-                            $main3_2 = $mainDescription->get('3-2');
-                            $main3_3 = $mainDescription->get('3-3');
+                            $center = $homeDescription->get('center');
+                            $main3_1 = $homeDescription->get('3-1');
+                            $main3_2 = $homeDescription->get('3-2');
+                            $main3_3 = $homeDescription->get('3-3');
                         @endphp
                         <form method="POST" class="form-horizontal" action="{{ action('Admin\ModifyHomeController@editDescription') }}">
                             {{ method_field('PUT') }}

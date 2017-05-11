@@ -19,12 +19,12 @@ class SessionForSweetAlertService {
         $this->sessionRepository = $sessionRepository;
     }
 
-    public function updateSuccess($title, $message)
+    public function success($title, $message)
     {
         $this->sessionRepository->success($title, $message);
     }
 
-    public function imageEmpty($title, $message)
+    public function error($title, $message)
     {
         $this->sessionRepository->error($title, $message);
     }

@@ -22,8 +22,8 @@ class CompanyImageService
     /**
      * @return mixed
      */
-    public function mainPageImages()
+    public function homePageImages()
     {
-        return $this->companyImageRepository->getImagesInfomation('main', 'main');
+        return $this->companyImageRepository->getImagesInfomation('home', 'home');
     }
 }
