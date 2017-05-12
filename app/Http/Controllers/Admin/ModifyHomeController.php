@@ -36,7 +36,7 @@ class ModifyHomeController extends AdminController
 
     public function editDescription(MainDescriptionRequest $request)
     {
-        $this->companyDescriptionService->modifyMainDescription($request);
+        $this->companyDescriptionService->modifyHomeDescription($request);
 
         $this->sessionForSweetAlertService->success('首頁內容', '修改成功');
 
@@ -45,8 +45,28 @@ class ModifyHomeController extends AdminController
 
     public function addHomeImage(Request $request)
     {
-        $this->imageService->uploadMainImages($request, $this->sessionForSweetAlertService);
+        $this->imageService->uploadHomeImages($request, 'home', 'home', '產品圖片', $this->sessionForSweetAlertService);
 
         return redirect('admin/home');
+    }
+
+    public function deleteHomeImage($companyImageId)
+    {
+        return $this->responseAjaxResult($this->imageService->deleteImages('home', 'home', $companyImageId));
+
+    }
+
+    private function responseAjaxResult($ajaxResult)
+    {
+        $httpCode = 200;
+
+        if ($ajaxResult['status'] == 'error') {
+            $httpCode = 500;
+        }
+
+        return response()->json($ajaxResult,
+            $httpCode,
+            ['Content-Type' => 'application/json; charset=utf-8'],
+            JSON_UNESCAPED_UNICODE);
     }
 }

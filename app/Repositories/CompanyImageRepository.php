@@ -29,6 +29,7 @@ class CompanyImageRepository extends EloquentRepository
     {
         return $this->model->where('usePage', '=', $usePage)
             ->where('useLocation', '=', $useLocation)
+            ->where('status', '=', 'A')
             ->get();
     }
 

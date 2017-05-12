@@ -3,7 +3,12 @@
 namespace App\Services;
 
 use App\Repositories\CompanyImageRepository;
+use Illuminate\Support\Facades\Storage;
 
+/**
+ * Class ImageService
+ * @package App\Services
+ */
 class ImageService
 {
     /**
@@ -15,10 +20,17 @@ class ImageService
         $this->companyImageRepository = $companyImageRepository;
     }
 
-    public function uploadMainImages($request, SessionForSweetAlertService $sessionForSweetAlertService)
+    /**
+     * @param $request
+     * @param $usePage
+     * @param $useLocation
+     * @param $usePageChineseName
+     * @param SessionForSweetAlertService $sessionForSweetAlertService
+     */
+    public function uploadHomeImages($request, $usePage, $useLocation, $usePageChineseName, SessionForSweetAlertService $sessionForSweetAlertService)
     {
         if (! $request->hasfile('addImage')) {
-            $sessionForSweetAlertService->imageEmpty('首頁圖片', '請選擇圖片並點選上傳');
+            $sessionForSweetAlertService->error($usePageChineseName, '請選擇圖片並點選上傳');
             return ;
         }
 
@@ -27,27 +39,52 @@ class ImageService
         $imageMimeType = $imageFile->getClientMimeType();
 
         if ($imageMimeType <> 'image/jpeg') {
-            $sessionForSweetAlertService->error('首頁圖片', '請務必上傳 .jpg 格式圖片');
+            $sessionForSweetAlertService->error($usePageChineseName, '請務必上傳 .jpg 格式圖片');
             return ;
         }
 
-        if ($this->checkImageNameIsBeenUsed('main', 'main', $imageName)) {
-            $sessionForSweetAlertService->error('首頁圖片', $imageName.' 已使用過，請確認是不是同張圖片');
+        if ($this->checkImageNameIsBeenUsed($usePage, $useLocation, $imageName)) {
+            $sessionForSweetAlertService->error($usePageChineseName, $imageName.' 已使用過，請確認是不是同張圖片');
             return ;
         }
 
-        if (! $imageFile->storeAs('public/home', $imageName)) {
-            $sessionForSweetAlertService->error('首頁圖片', $imageName.' 上傳失敗請再試一次');
+        if (! $imageFile->storeAs('public/'.$usePage, $imageName)) {
+            $sessionForSweetAlertService->error($usePageChineseName, $imageName.' 上傳失敗請再試一次');
             return ;
         }
 
-        $bb = $this->companyImageRepository->addMainImages($imageName);
+        if (! $this->companyImageRepository->addMainImages($imageName)) {
+            $sessionForSweetAlertService->error($usePageChineseName, $imageName.' 上傳失敗請再試一次');
+            return ;
+        }
 
-        $sessionForSweetAlertService->success('首頁圖片', '上傳成功');
+        $sessionForSweetAlertService->success($usePageChineseName, '上傳成功');
     }
 
+    /**
+     * @param $usePage
+     * @param $useLocation
+     * @param $imageName
+     * @return bool
+     */
     private function checkImageNameIsBeenUsed($usePage, $useLocation, $imageName) {
 
         return $this->companyImageRepository->isBeenUsed($usePage, $useLocation, $imageName);
+    }
+
+    public function deleteImages($usePage, $useLocation, $companyImageId)
+    {
+        $imageRow = $this->companyImageRepository->find($companyImageId);
+
+        // because use local disk, i use homestead but inside symbol link can not link to local computer
+        // this code is temp comment
+//        if (! Storage::get($imageRow->fileUrl.'/'.$imageRow->fileName)) {
+//            return ['status' => 'error', 'message' => '無此檔案存在'];
+//        }
+//        Storage::delete($imageRow->fileUrl.'/'.$imageRow->fileName);
+
+        $this->companyImageRepository->delete($companyImageId);
+
+        return ['status' => 'success', 'message' => "$imageRow->fileName 刪除成功"];
     }
 }

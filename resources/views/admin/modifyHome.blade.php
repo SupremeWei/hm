@@ -4,7 +4,7 @@
     <link href="{{ asset('admin-assets/css/plugins/slick/slick.css') }}" rel="stylesheet">
     <link href="{{ asset('admin-assets/css/plugins/slick/slick-theme.css') }}" rel="stylesheet">
     <style>
-        .slick_demo_2 .ibox-content1 {
+        .home-image-use-slick .ibox-content-inside {
             margin: 0 10px;
         }
     </style>
@@ -20,19 +20,20 @@
                         修改 首頁封面圖片
                     </div>
                     <div class="ibox-content">
-                        <div class="slick_demo_2">
+                        <div class="home-image-use-slick">
                             @foreach($homeImages as $imageRow)
                             <div>
-                                <div class="ibox float-e-margins ibox-content1">
-                                    <div class="ibox-title">
+                                <div class="ibox float-e-margins ibox-content-inside">
+                                    <div class="ibox-title gray-bg">
                                         <h5>{{ $imageRow->fileName }}</h5>
                                         <div class="ibox-tools">
-                                            <a>
+                                            <a name="image" data-delete-url="{{ action('Admin\ModifyHomeController@deleteHomeImage', $imageRow->companyImageId) }}"
+                                                data-delete-name="{{ $imageRow->fileName }}">
                                                 <i class="fa fa-trash"></i>
                                             </a>
                                         </div>
                                     </div>
-                                    <div class="ibox-content">
+                                    <div class="ibox-conten">
                                         <img class="img-responsive rounded-2x" src='{{ Storage::url("$imageRow->fileUrl/$imageRow->fileName") }}' alt="">
                                     </div>
                                 </div>
@@ -149,41 +150,7 @@
 @section('custom-js')
     <!-- slick carousel-->
     <script src="{{ asset('admin-assets/js/plugins/slick/slick.min.js') }}"></script>
-    <script>
-        $(document).ready(function(){
-            $('.slick_demo_2').slick({
-                infinite: true,
-                slidesToShow: 3,
-                slidesToScroll: 1,
-                centerMode: true,
-                responsive: [
-                    {
-                        breakpoint: 1024,
-                        settings: {
-                        slidesToShow: 3,
-                        slidesToScroll: 3,
-                        infinite: true,
-                        dots: true
-                        }
-                    },
-                    {
-                        breakpoint: 600,
-                        settings: {
-                        slidesToShow: 2,
-                        slidesToScroll: 2
-                        }
-                    },
-                    {
-                        breakpoint: 480,
-                        settings: {
-                        slidesToShow: 1,
-                        slidesToScroll: 1
-                        }
-                    }
-                ]
-            });
-        });
-    </script>
+    <script src="{{ asset('js/modify-home.js') }}"></script>
     <!-- Jasny -->
     <script src="{{ asset('admin-assets/js/plugins/jasny/jasny-bootstrap.min.js') }}"></script>
 @endsection
