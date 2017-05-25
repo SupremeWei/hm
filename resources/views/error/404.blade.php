@@ -41,7 +41,7 @@
         <link rel="stylesheet" href="{{ asset('package-assets/css/custom.css?v=201704271000') }}">
     </head>
 
-    <body>img2.jpg
+    <body>
         <!--=== Error V4 ===-->
         <div class="container content valign__middle">
             <!--Error Block-->
@@ -78,7 +78,7 @@
         <script type="text/javascript" src="{{ asset('package-assets/plugins/back-to-top.js') }}"></script>
         <script type="text/javascript" src="{{ asset('package-assets/plugins/backstretch/jquery.backstretch.min.js') }}"></script>
         <!-- JS Customization -->
-        <script type="text/javascript" src="{{ asset('package-assets/js/custom.js?v=201705101500') }}"></script>
+
         <!-- JS Page Level -->
         <script type="text/javascript" src="{{ asset('package-assets/js/app.js') }}"></script>
         <script type="text/javascript" src="{{ asset('package-assets/js/plugins/style-switcher.js') }}"></script>
