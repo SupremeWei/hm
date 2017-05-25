@@ -4,7 +4,7 @@
     <link href="{{ asset('admin-assets/css/plugins/slick/slick.css') }}" rel="stylesheet">
     <link href="{{ asset('admin-assets/css/plugins/slick/slick-theme.css') }}" rel="stylesheet">
     <style>
-        .home-image-use-slick .ibox-content-inside {
+        .image-use-slick .ibox-content-inside {
             margin: 0 10px;
         }
     </style>
@@ -17,10 +17,10 @@
             <div class="col-lg-12">
                 <div class="ibox">
                     <div class="ibox-title blue-bg">
-                        修改 首頁封面圖片
+                        <h5>修改 首頁 封面圖片</h5>
                     </div>
                     <div class="ibox-content">
-                        <div class="home-image-use-slick">
+                        <div class="image-use-slick image-use-slick-js">
                             @foreach($homeImages as $imageRow)
                             <div>
                                 <div class="ibox float-e-margins ibox-content-inside">
@@ -76,10 +76,16 @@
             </div>
         </div>
         <div class="row">
+            @php
+                foreach($homeDescription as $detailData) {
+                    $variableName = $detailData->descriptionType;
+                    $$variableName = $detailData;
+                }
+            @endphp
             <div class="col-lg-12">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title blue-bg">
-                        <h5>修改 首頁內容區塊 <small class="text-navy">翰鎂提供眾多服務、專注化產品、公司願景、公司環境</small></h5>
+                        <h5>修改 首頁 內容區塊 <small class="text-navy">翰鎂提供眾多服務、專注化產品、公司願景、公司環境</small></h5>
                         <div class="ibox-tools">
                             <a class="collapse-link">
                                 <i class="fa fa-chevron-up"></i>
@@ -87,52 +93,33 @@
                         </div>
                     </div>
                     <div class="ibox-content">
-                        @php
-                            $center = $homeDescription->get('center');
-                            $main3_1 = $homeDescription->get('3-1');
-                            $main3_2 = $homeDescription->get('3-2');
-                            $main3_3 = $homeDescription->get('3-3');
-                        @endphp
-                        <form method="POST" class="form-horizontal" action="{{ action('Admin\ModifyHomeController@editDescription') }}">
+                        <form method="POST" class="form-horizontal" action="{{ action('Admin\ModifyHomeController@editHomeDescription') }}">
                             {{ method_field('PUT') }}
                             {{ csrf_field() }}
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">翰鎂提供眾多服務</label>
-                                <div class="col-sm-10">
-                                    <textarea class="form-control @if ($errors->has('center')) input-error @endif" name="center" value="">{{ $center->content }}</textarea>
-                                    @if ($errors->has('center'))
-                                        <label class="label label-danger">不可為空白</label>
-                                    @endif
+                            @foreach($homeDescription as $detailData)
+                                @php
+                                    $currentVariableName = $detailData->descriptionType;
+                                @endphp
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">標題</label>
+                                    <div class="col-sm-10">
+                                        <input class="form-control {{($errors->has("$currentVariableName-title")) ? 'input-error' : ''}}" name="{{ $currentVariableName }}-title" value="{{ $$currentVariableName->contentTitle }}">
+                                        @if ($errors->has("$currentVariableName-title"))
+                                            <label class="label label-danger">{{ $errors->first("$currentVariableName-title") }}</label>
+                                        @endif
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">專注化產品</label>
-                                <div class="col-sm-10">
-                                    <textarea class="form-control @if ($errors->has('3-1')) input-error @endif" name="3-1">{{ $main3_1->content }}</textarea>
-                                    @if ($errors->has('3-1'))
-                                        <label class="label label-danger">不可為空白</label>
-                                    @endif
+                                <div class="form-group">
+                                    <label class="col-sm-2 control-label">{{ $$currentVariableName->contentTitle }}</label>
+                                    <div class="col-sm-10">
+                                        <textarea class="form-control {{($errors->has("$currentVariableName")) ?'input-error' : ''}}" name="{{ $currentVariableName }}">{{ $$currentVariableName->content }}</textarea>
+                                        @if ($errors->has("$currentVariableName"))
+                                            <label class="label label-danger">{{ $errors->first("$currentVariableName") }}</label>
+                                        @endif
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">公司願景</label>
-                                <div class="col-sm-10">
-                                    <textarea class="form-control @if ($errors->has('3-2')) input-error @endif" name="3-2">{{ $main3_2->content }}</textarea>
-                                    @if ($errors->has('3-2'))
-                                        <label class="label label-danger">不可為空白</label>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label class="col-sm-2 control-label">公司環境</label>
-                                <div class="col-sm-10">
-                                    <textarea class="form-control @if ($errors->has('3-3')) input-error @endif" name="3-3">{{ $main3_3->content }}</textarea>
-                                    @if ($errors->has('3-3'))
-                                        <label class="label label-danger">不可為空白</label>
-                                    @endif
-                                </div>
-                            </div>
-                            <div class="hr-line-dashed"></div>
+                                <div class="hr-line-dashed"></div>
+                            @endforeach
                             <div class="form-group">
                                 <div class="col-md-8"></div>
                                 <div class="col-md-4">
@@ -150,7 +137,7 @@
 @section('custom-js')
     <!-- slick carousel-->
     <script src="{{ asset('admin-assets/js/plugins/slick/slick.min.js') }}"></script>
-    <script src="{{ asset('js/modify-home.js') }}"></script>
+    <script src="{{ asset('js/admin/modify-image-and-slick.js') }}"></script>
     <!-- Jasny -->
     <script src="{{ asset('admin-assets/js/plugins/jasny/jasny-bootstrap.min.js') }}"></script>
 @endsection

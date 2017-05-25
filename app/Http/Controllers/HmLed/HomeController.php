@@ -28,7 +28,10 @@ class HomeController extends Controller
 
     public function about()
     {
-        return view('hmled.about');
+        $aboutImages = $this->companyImageService->aboutPageImages();
+        $aboutDescription = $this->companyDescriptionService->aboutDescription()->chunk(2);
+
+        return view('hmled.about', compact('aboutImages', 'aboutDescription'));
     }
 
     public function contact()

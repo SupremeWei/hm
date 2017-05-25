@@ -1,5 +1,7 @@
 {
   "/js/app.js": "/js/app.js",
   "/css/app.css": "/css/app.css",
-  "/js/modify-home.js": "/js/modify-home.js"
+  "/js/admin/modify-image-and-slick.js": "/js/admin/modify-image-and-slick.js",
+  "/js/web/layout/navbar-pick.js": "/js/web/layout/navbar-pick.js",
+  "/js/admin/left-side-bar.js": "/js/admin/left-side-bar.js"
 }

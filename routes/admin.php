@@ -12,7 +12,12 @@
 */
 Route::group(['namespace' => 'Admin'], function() {
     Route::get('admin/home', 'ModifyHomeController@home');
-    Route::put('admin/home', 'ModifyHomeController@editDescription');
+    Route::put('admin/home', 'ModifyHomeController@editHomeDescription');
     Route::post('admin/home/image', 'ModifyHomeController@addHomeImage');
     Route::delete('admin/home/image/{companyImageId}', 'ModifyHomeController@deleteHomeImage');
+
+    Route::get('admin/about', 'ModifyAboutController@about');
+    Route::put('admin/about', 'ModifyAboutController@editAboutDescription');
+    Route::post('admin/about/image', 'ModifyAboutController@addAboutImage');
+    Route::delete('admin/about/image/{companyImageId}', 'ModifyAboutController@deleteAboutImage');
 });

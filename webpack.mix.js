@@ -14,6 +14,11 @@ const { mix } = require('laravel-mix');
 mix.js('resources/assets/js/app.js', 'public/js')
    .sass('resources/assets/sass/app.scss', 'public/css');
 
-mix.js(['resources/assets/js/admin/home-delete-image.js',
-        'resources/assets/js/admin/home-slick.js'],
-        'public/js/modify-home.js');
+mix.js(['resources/assets/js/admin/modify-delete-image.js',
+        'resources/assets/js/admin/use-slick.js'],
+        'public/js/admin/modify-image-and-slick.js');
+
+
+mix.js('resources/assets/js/admin/left-side-bar.js', 'public/js/admin/left-side-bar.js');
+
+mix.js('resources/assets/js/web/layout/navbar-nav-pick.js', 'public/js/web/layout/navbar-pick.js');

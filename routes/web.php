@@ -13,8 +13,8 @@
 Route::group(['namespace' => 'HmLed'], function() {
     Route::get('/', 'HomeController@home');
     Route::get('home', 'HomeController@home');
-    Route::get('about', 'HomeController@about');
-    Route::get('contact', 'HomeController@contact');
+    Route::get('about', 'AboutController@about');
+    Route::get('contact', 'ContactController@contact');
     Route::post('send', 'MailController@sendMail');
     Route::get('product/show/{categoryItemId}', 'ProductController@showItemDetail');
     Route::get('product/showDC/{categoryItemId}', 'ProductController@showDCItemDetail');

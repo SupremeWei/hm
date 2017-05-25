@@ -187,7 +187,7 @@
         <script type="text/javascript" src="{{ asset('package-assets/plugins/fancybox/source/jquery.fancybox.pack.js') }}"></script>
         <script type="text/javascript" src="{{ asset('package-assets/plugins/owl-carousel/owl-carousel/owl.carousel.js') }}"></script>
         <!-- JS Customization -->
-        <script type="text/javascript" src="{{ asset('package-assets/js/custom.js?v=201705021515') }}"></script>
+        <script type="text/javascript" src="{{ asset('js/web/layout/navbar-pick.js?v=201705251030') }}"></script>
         <!-- JS Page Level -->
         <script type="text/javascript" src="{{ asset('package-assets/js/app.js') }}"></script>
         <script type="text/javascript" src="{{ asset('package-assets/js/plugins/fancy-box.js') }}"></script>

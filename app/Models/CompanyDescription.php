@@ -29,6 +29,7 @@ class CompanyDescription extends Model
     protected $fillable = [
         'descriptionType',
         'choiceFontawesome',
+        'contentTitle',
         'content',
         'updateDateTime',
     ];

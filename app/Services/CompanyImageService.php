@@ -26,4 +26,12 @@ class CompanyImageService
     {
         return $this->companyImageRepository->getImagesInfomation('home', 'home');
     }
+
+    /**
+     * @return mixed
+     */
+    public function aboutPageImages()
+    {
+        return $this->companyImageRepository->getImagesInfomation('about', 'about');
+    }
 }

@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $('.home-image-use-slick').slick({
+    $('.image-use-slick-js').slick({
         infinite: true,
         slidesToShow: 3,
         slidesToScroll: 1,

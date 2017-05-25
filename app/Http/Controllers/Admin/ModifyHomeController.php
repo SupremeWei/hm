@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\MainDescriptionRequest;
+use App\Http\Requests\HomeDescriptionRequest;
 use App\Services\ImageService;
 use App\Services\SessionForSweetAlertService;
 use Illuminate\Http\Request;
 use App\Services\CompanyDescriptionService;
 use App\Services\CompanyImageService;
 use App\Services\SessionService;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Input;
 
 class ModifyHomeController extends AdminController
 {
@@ -34,7 +32,7 @@ class ModifyHomeController extends AdminController
         return view('admin.modifyHome', compact('homeDescription', 'homeImages'));
     }
 
-    public function editDescription(MainDescriptionRequest $request)
+    public function editHomeDescription(HomeDescriptionRequest $request)
     {
         $this->companyDescriptionService->modifyHomeDescription($request);
 
@@ -45,7 +43,7 @@ class ModifyHomeController extends AdminController
 
     public function addHomeImage(Request $request)
     {
-        $this->imageService->uploadHomeImages($request, 'home', 'home', '產品圖片', $this->sessionForSweetAlertService);
+        $this->imageService->uploadImages($request, 'home', 'home', '產品圖片', $this->sessionForSweetAlertService);
 
         return redirect('admin/home');
     }
@@ -53,7 +51,6 @@ class ModifyHomeController extends AdminController
     public function deleteHomeImage($companyImageId)
     {
         return $this->responseAjaxResult($this->imageService->deleteImages('home', 'home', $companyImageId));
-
     }
 
     private function responseAjaxResult($ajaxResult)
@@ -68,5 +65,26 @@ class ModifyHomeController extends AdminController
             $httpCode,
             ['Content-Type' => 'application/json; charset=utf-8'],
             JSON_UNESCAPED_UNICODE);
+    }
+
+    public function deleteAboutImage($companyImageId)
+    {
+        return $this->responseAjaxResult($this->imageService->deleteImages('about', 'about', $companyImageId));
+    }
+
+    public function addAboutImage(Request $request)
+    {
+        $this->imageService->uploadHomeImages($request, 'about', 'about', '關於我圖片', $this->sessionForSweetAlertService);
+
+        return redirect('admin/about');
+    }
+
+    public function about()
+    {
+        $aboutDescription = $this->companyDescriptionService->aboutDescription();
+
+        $aboutImages = $this->companyImageService->aboutPageImages();
+
+        return view('admin.modifyAbout', compact('aboutDescription', 'aboutImages'));
     }
 }

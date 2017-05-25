@@ -37,12 +37,12 @@ class CompanyImageRepository extends EloquentRepository
      * @param $fileName
      * @return mixed
      */
-    public function addMainImages($fileName)
+    public function addMainImages($fileName, $usePage, $useLocation, $fileUrl)
     {
-        return $this->create(['usePage' => 'home',
-            'useLocation' => 'home',
+        return $this->create(['usePage' => $usePage,
+            'useLocation' => $useLocation,
             'fileName' => $fileName,
-            'fileUrl' => 'home',
+            'fileUrl' => $fileUrl,
             'status' => 'A',
             'updateDateTime' => Carbon::now()
         ]);

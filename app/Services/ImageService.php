@@ -27,7 +27,7 @@ class ImageService
      * @param $usePageChineseName
      * @param SessionForSweetAlertService $sessionForSweetAlertService
      */
-    public function uploadHomeImages($request, $usePage, $useLocation, $usePageChineseName, SessionForSweetAlertService $sessionForSweetAlertService)
+    public function uploadImages($request, $usePage, $useLocation, $usePageChineseName, SessionForSweetAlertService $sessionForSweetAlertService)
     {
         if (! $request->hasfile('addImage')) {
             $sessionForSweetAlertService->error($usePageChineseName, '請選擇圖片並點選上傳');
@@ -53,7 +53,7 @@ class ImageService
             return ;
         }
 
-        if (! $this->companyImageRepository->addMainImages($imageName)) {
+        if (! $this->companyImageRepository->addMainImages($imageName, $usePage, $useLocation, $useLocation)) {
             $sessionForSweetAlertService->error($usePageChineseName, $imageName.' 上傳失敗請再試一次');
             return ;
         }

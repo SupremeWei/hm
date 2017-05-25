@@ -29,17 +29,60 @@ class CompanyDescriptionRepository extends EloquentRepository
      */
     public function getHomePageAllDescription()
     {
-        return $this->companyDescription->where('usePage', '=', 'home')->get()->keyBy('descriptionType');
+        return $this->getDescription('home');
     }
 
     /**
      * @param $homeModifyData
      */
-    public function exeModifyHomeDescription($homeModifyData)
+    public function modifyHomeDescription($homeModifyData)
     {
-        foreach ($homeModifyData as $key => $row) {
-            $companyModel = $this->companyDescription->where('descriptionType', '=', $key)->update(['content' => trim($row)]);
+        $this->updateDescription('home', $homeModifyData);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAboutPageAllDescription()
+    {
+        return $this->getDescription('about');
+    }
+
+    /**
+     * @param $aboutModifyData
+     */
+    public function modifyAboutDescription($aboutModifyData)
+    {
+        $this->updateDescription('about', $aboutModifyData);
+    }
+
+    /**
+     * @param $usePage
+     * @param $modifyData
+     */
+    private function updateDescription($usePage, $modifyData)
+    {
+        foreach ($modifyData as $key => $row) {
+            if ($usePage == 'about') {
+                $companyModel = $this->companyDescription->where('usePage', '=', $usePage)
+                    ->where('descriptionType', '=', $key)
+                    ->update(['contentTitle' => trim($row['title']), 'content' => trim($row['content'])]);
+            } else {
+                $companyModel = $this->companyDescription->where('usePage', '=', $usePage)
+                    ->where('descriptionType', '=', $key)
+                    ->update(['content' => trim($row)]);
+            }
         }
+    }
+
+    /**
+     * @return mixed
+     */
+    private function getDescription($usePage)
+    {
+        return $this->companyDescription->where('usePage', '=', $usePage)
+            ->get()
+            ->keyBy('descriptionType');
     }
 }
 
