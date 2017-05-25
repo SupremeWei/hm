@@ -29,7 +29,7 @@
         <link href="{{ asset('admin-assets/css/style.css') }}" rel="stylesheet">
 
         <!-- Custom -->
-        <link href="{{ asset('admin-assets/css/custom.css?v=201705051500') }}" rel="stylesheet">
+        <link href="{{ asset('admin-assets/css/custom.css?v=201705231500') }}" rel="stylesheet">
 
         @yield('custom-css')
     </head>
@@ -57,16 +57,16 @@
                                 HM
                             </div>
                         </li>
-                        <li class="active">
-                            <a href="layouts.html"><i class="fa fa-home"></i> <span class="nav-label">首頁</span></a>
+                        <li class="home">
+                            <a href="{{ action('Admin\ModifyHomeController@home') }}"><i class="fa fa-home"></i> <span class="nav-label">首頁</span></a>
                         </li>
-                        <li>
-                            <a href="layouts.html"><i class="fa fa-building-o"></i> <span class="nav-label">關於翰鎂</span></a>
+                        <li class="about">
+                            <a href="{{ action('Admin\ModifyAboutController@about') }}"><i class="fa fa-building-o"></i> <span class="nav-label">關於翰鎂</span></a>
                         </li>
-                        <li>
+                        <li class="product">
                             <a href="layouts.html"><i class="fa fa-diamond"></i> <span class="nav-label">產品資訊</span></a>
                         </li>
-                        <li>
+                        <li class="contact">
                             <a href="layouts.html"><i class="fa fa-envelope"></i> <span class="nav-label">聯絡翰鎂</span></a>
                         </li>
                     </ul>
@@ -167,6 +167,7 @@
         </script>
 
         @yield('custom-js')
+        <script src="{{ asset('js/admin/left-side-bar.js?v=201705251351') }}"></script>
     </body>
 </html>
 
